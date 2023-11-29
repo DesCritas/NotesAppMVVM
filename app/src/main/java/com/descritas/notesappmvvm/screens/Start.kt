@@ -23,6 +23,9 @@ import com.descritas.notesappmvvm.MainViewModel
 import com.descritas.notesappmvvm.MainViewModelFactory
 import com.descritas.notesappmvvm.navigation.NavRoute
 import com.descritas.notesappmvvm.ui.theme.NotesAppMVVMTheme
+import com.descritas.notesappmvvm.utils.Constants.Keys.CHOSE_BASE
+import com.descritas.notesappmvvm.utils.Constants.Keys.FIREBASE_DATABASE
+import com.descritas.notesappmvvm.utils.Constants.Keys.ROOM_DATABASE
 import com.descritas.notesappmvvm.utils.TYPE_FIREBASE
 import com.descritas.notesappmvvm.utils.TYPE_ROOM
 
@@ -39,7 +42,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "What base will we use")
+            Text(text = CHOSE_BASE)
             Button(
                 onClick = {
                     mViewModel.initDatabase(TYPE_ROOM){
@@ -52,7 +55,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .padding(paddigPages)
             )
             {
-                Text(text = "Room database")
+                Text(text = ROOM_DATABASE)
             }
             Button(
                 onClick = {
@@ -66,7 +69,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                     .padding(paddigPages)
             )
             {
-                Text(text = "Firebase database")
+                Text(text = FIREBASE_DATABASE)
             }
         }
     }
