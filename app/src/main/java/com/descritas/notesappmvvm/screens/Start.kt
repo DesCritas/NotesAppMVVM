@@ -1,7 +1,6 @@
 package com.descritas.notesappmvvm.screens
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -102,8 +101,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                             LOGIN = login
                             PASSWORD = password
                             viewModel.initDatabase(TYPE_FIREBASE) {
-
-                                Log.d("checkData", "Auth success")
+                                navController.navigate(NavRoute.Main.route)
                             }
                         },
                         enabled = login.isNotEmpty() && password.isNotEmpty()
