@@ -1,8 +1,8 @@
 package com.descritas.notesappmvvm.utils
 
+import androidx.compose.runtime.mutableStateOf
 import com.descritas.notesappmvvm.database.DatabaseRepository
 
-const val TYPE_DATABASE = "type_database"
 const val TYPE_ROOM = "type_room"
 const val TYPE_FIREBASE = "type_firebase"
 const val FIREBASE_ID = "firebaseId"
@@ -10,7 +10,7 @@ const val FIREBASE_ID = "firebaseId"
 lateinit var REPOSITORY: DatabaseRepository
 lateinit var LOGIN: String
 lateinit var PASSWORD: String
-lateinit var DB_TYPE: String
+var DB_TYPE = mutableStateOf("")
 
 
 object Constants {
@@ -27,7 +27,6 @@ object Constants {
         const val ROOM_DATABASE = "Room database"
         const val FIREBASE_DATABASE = "Firebase database"
         const val ID = "Id"
-        const val NONE = "None"
         const val UPDATE = "Update"
         const val DELETE = "Delete"
         const val NAV_BACK = "Back"

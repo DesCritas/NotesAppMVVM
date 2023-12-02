@@ -10,6 +10,8 @@ import com.descritas.notesappmvvm.database.firebase.AppFirebaseRepository
 import com.descritas.notesappmvvm.database.room.AppRoomDatabase
 import com.descritas.notesappmvvm.database.room.repository.RoomRepository
 import com.descritas.notesappmvvm.model.Note
+import com.descritas.notesappmvvm.utils.Constants
+import com.descritas.notesappmvvm.utils.DB_TYPE
 import com.descritas.notesappmvvm.utils.REPOSITORY
 import com.descritas.notesappmvvm.utils.TYPE_FIREBASE
 import com.descritas.notesappmvvm.utils.TYPE_ROOM
@@ -67,6 +69,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     }
 
     fun readAllNotes() = REPOSITORY.readAll
+
+    fun signOut(onSuccess: () -> Unit){
+        when(DB_TYPE.value){
+            TYPE_FIREBASE,
+            TYPE_ROOM -> {
+                REPOSITORY.signOut()
+                DB_TYPE.value = Constants.Keys.EMPTY
+                onSuccess()
+            }
+
+            else -> Log.d("checkData", "signOut: ELSE : ${DB_TYPE.value}")
+        }
+    }
 }
 
 class MainViewModelFactory(private val application: Application): ViewModelProvider.Factory{
