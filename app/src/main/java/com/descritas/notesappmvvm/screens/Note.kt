@@ -45,11 +45,13 @@ import com.descritas.notesappmvvm.utils.Constants.Keys.DELETE
 import com.descritas.notesappmvvm.utils.Constants.Keys.EDIT_NOTE
 import com.descritas.notesappmvvm.utils.Constants.Keys.EMPTY
 import com.descritas.notesappmvvm.utils.Constants.Keys.NAV_BACK
-import com.descritas.notesappmvvm.utils.Constants.Keys.NONE
 import com.descritas.notesappmvvm.utils.Constants.Keys.SUBTITLE
 import com.descritas.notesappmvvm.utils.Constants.Keys.TITLE
 import com.descritas.notesappmvvm.utils.Constants.Keys.UPDATE
 import com.descritas.notesappmvvm.utils.Constants.Keys.UPDATE_NOTE
+import com.descritas.notesappmvvm.utils.DB_TYPE
+import com.descritas.notesappmvvm.utils.TYPE_FIREBASE
+import com.descritas.notesappmvvm.utils.TYPE_ROOM
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -61,7 +63,20 @@ fun NoteScreen(
     noteId: String?) {
 
     val notes = viewModel.readAllNotes().observeAsState(listOf()).value
-    val note = notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subtitle = NONE)
+    val note = when(DB_TYPE){
+        TYPE_ROOM -> {
+            notes.firstOrNull { it.id == noteId?.toInt() } ?: Note()
+        }
+        TYPE_FIREBASE ->{
+            notes.firstOrNull { it.firebaseId == noteId } ?: Note()
+        }
+        else -> Note()
+
+
+    }
+
+
+        //notes.firstOrNull { it.id == noteId?.toInt() } ?: Note(title = NONE, subtitle = NONE)
     val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var title by remember {
@@ -105,7 +120,7 @@ fun NoteScreen(
                         modifier = Modifier.padding(top = 16.dp),
                         onClick = {
                             viewModel.updateNote(note =
-                            Note(id = note.id, title = title, subtitle = subtitle)
+                            Note(id = note.id, title = title, subtitle = subtitle, firebaseId = note.firebaseId)
                             ) {
                                 navController.navigate(NavRoute.Main.route)
                             }

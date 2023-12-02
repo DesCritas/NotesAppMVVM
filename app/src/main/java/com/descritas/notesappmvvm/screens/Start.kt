@@ -45,6 +45,7 @@ import com.descritas.notesappmvvm.utils.Constants.Keys.FIREBASE_DATABASE
 import com.descritas.notesappmvvm.utils.Constants.Keys.INPUT_EMAIL
 import com.descritas.notesappmvvm.utils.Constants.Keys.LOG_IN
 import com.descritas.notesappmvvm.utils.Constants.Keys.ROOM_DATABASE
+import com.descritas.notesappmvvm.utils.DB_TYPE
 import com.descritas.notesappmvvm.utils.LOGIN
 import com.descritas.notesappmvvm.utils.PASSWORD
 import com.descritas.notesappmvvm.utils.TYPE_FIREBASE
@@ -101,6 +102,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                             LOGIN = login
                             PASSWORD = password
                             viewModel.initDatabase(TYPE_FIREBASE) {
+                                DB_TYPE = TYPE_FIREBASE
                                 navController.navigate(NavRoute.Main.route)
                             }
                         },
@@ -124,6 +126,7 @@ fun StartScreen(navController: NavHostController, viewModel: MainViewModel) {
                 Button(
                     onClick = {
                         viewModel.initDatabase(TYPE_ROOM) {
+                            DB_TYPE = TYPE_ROOM
                             navController.navigate(route = NavRoute.Main.route)
                         }
 
